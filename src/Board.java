@@ -7,12 +7,19 @@ public class Board extends PApplet {
 	boolean[] keys = new boolean[9];
 	
 	public Board() {
-		
+		puck = new Puck(500, 500, 100);
 	}
 
 	public void draw() {
+		background(255);
 		
 		act();
+		
+		puck.draw(this);
+		puck.setVelocity(2, 2);
+		puck.act(this);
+		
+		
 		
 //		PFont font = createFont("Arial", 75);
 //		if (piece1.Xlife == 100) {
@@ -117,7 +124,7 @@ public class Board extends PApplet {
 	}
 	
 	public void setup() {
-		
+		puck.setup(this);
 	}
 }
 
