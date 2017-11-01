@@ -6,7 +6,7 @@ public class Puck {
 	
 	PShape puck;
 	int x, y, radius;
-	int vx, vy;
+	int vx, vy, vxm, vym;
 	
 	public Puck(int x, int y, int radius) {
 		this.x = x;
@@ -14,6 +14,8 @@ public class Puck {
 		this.radius = radius;
 		this.vx = 0;
 		this.vy = 0;
+		this.vxm = 1;
+		this.vym = 1;
 	}
 	
 	public void setup(PApplet drawer) {
@@ -21,7 +23,7 @@ public class Puck {
 	}
 	
 	public void newPuck(PApplet drawer) {
-		puck = drawer.createShape(PConstants.ELLIPSE, x, y , radius, radius);
+		puck = drawer.createShape(PConstants.ELLIPSE, x, y , radius*2, radius*2);
 		puck.setFill(200);
 		puck.setStrokeWeight(2);
 	}
@@ -37,16 +39,17 @@ public class Puck {
 	}
 	
 	public void act(PApplet drawer) {
-		x += vx;
-		y += vy;
-	//	newPuck(drawer);
-		if (x > 1275 - 50 || x < 0) {
-			vx *= -1;   
-			
+		if ((x > drawer.width - radius) || (x < radius)) {
+			vxm *= -1;   
 		}
-		if (y > 700 - 50 || y < 0) {
-			vy *= -1;
+		if ((y > drawer.height - radius) || (y < radius)) {
+			vym *= -1;   
 		}
+
+		x += vx*vxm;
+		y += vy*vym;
+		newPuck(drawer);
+		
 	}
 	
 	

@@ -2,24 +2,28 @@ import processing.core.PApplet;
 import processing.core.PFont;
 
 public class Board extends PApplet {
-	private Pusher pusher1, pusher2;
-	private PuckEX puck;
+	private Pusher pusherLeft, pusherRight;
+	private Puck puck;
 	boolean[] keys = new boolean[9];
 	
 	public Board() {
-		puck = new PuckEX(500, 500, 100, Color.BLACK, Color.GRAY, );
+		puck = new Puck(500, 500, 25);
+		pusherLeft = new Pusher(100, 350, 50);
+		pusherRight = new Pusher(1169, 350, 50);
 	}
 
 	public void draw() {
 		background(255);
 		
-		//act();
+		act();
+		
+		pusherLeft.draw(this);
+		pusherRight.draw(this);
 		
 		puck.draw(this);
-		puck.setVelocity(2, 2);
+		puck.setVelocity(5, 5);
 		puck.act(this);
 
-		
 		
 //		PFont font = createFont("Arial", 75);
 //		if (piece1.Xlife == 100) {
@@ -33,30 +37,31 @@ public class Board extends PApplet {
 
 	}
 	
+	int speed = 20;
 	public void act() {
 		if (keys[0] == true) {
-			System.out.println("0");
+			pusherLeft.y -= speed;
 		}
 		if (keys[1] == true) {
-			System.out.println("1");
+			pusherLeft.x -= speed;
 		}
 		if (keys[2] == true) {
-			System.out.println("2");
+			pusherLeft.y += speed;
 		}
 		if (keys[3] == true) {
-			System.out.println("3");
+			pusherLeft.x += speed;
 		}
 		if (keys[4] == true) {
-			System.out.println("4");
+			pusherRight.x -= speed;
 		}
 		if (keys[5] == true) {
-			System.out.println("5");
+			pusherRight.y -= speed;
 		}
 		if (keys[6] == true) {
-			System.out.println("6");
+			pusherRight.x += speed;
 		}
 		if (keys[7] == true) {
-			System.out.println("7");
+			pusherRight.y += speed;
 		}
 	}
 	
