@@ -3,22 +3,22 @@ import processing.core.PFont;
 
 public class Board extends PApplet {
 	private Pusher pusher1, pusher2;
-	private Puck puck;
+	private PuckEX puck;
 	boolean[] keys = new boolean[9];
 	
 	public Board() {
-		puck = new Puck(500, 500, 100);
+		puck = new PuckEX(500, 500, 100, Color.BLACK, Color.GRAY, );
 	}
 
 	public void draw() {
 		background(255);
 		
-		act();
+		//act();
 		
 		puck.draw(this);
 		puck.setVelocity(2, 2);
 		puck.act(this);
-		
+
 		
 		
 //		PFont font = createFont("Arial", 75);

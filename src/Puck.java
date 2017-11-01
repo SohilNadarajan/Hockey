@@ -28,6 +28,7 @@ public class Puck {
 	
 	public void draw(PApplet drawer) {
 		drawer.shape(puck);
+		act(drawer);
 	}
 	
 	public void setVelocity(int vx, int vy) {
@@ -38,15 +39,15 @@ public class Puck {
 	public void act(PApplet drawer) {
 		x += vx;
 		y += vy;
-		newPuck(drawer);
+	//	newPuck(drawer);
+		if (x > 1275 - 50 || x < 0) {
+			vx *= -1;   
+			
+		}
+		if (y > 700 - 50 || y < 0) {
+			vy *= -1;
+		}
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
