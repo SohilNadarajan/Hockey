@@ -8,7 +8,7 @@ public class Board extends PApplet {
 	boolean[] keys = new boolean[9];
 	
 	public Board() {
-		puck = new Puck(500, 500, 25);
+		puck = new Puck(635, 350, 25);
 		pusherLeft = new Pusher(100, 350, 50);
 		pusherRight = new Pusher(1169, 350, 50);
 		table = new TableDesigns();
@@ -22,19 +22,20 @@ public class Board extends PApplet {
 		
 		pusherLeft.draw(this);
 		pusherRight.draw(this);
-		
 		puck.draw(this);
-		puck.setVelocity(5, 5);
-		puck.act(this);
 		
-//		collisionDetection();
+		if (collisionDetectionLeft() || collisionDetectionRight()) {
+			puck.setVelocity(10, 10);
+			puck.act(this);
+		}
 		
-//		PFont font = createFont("Arial", 75);
-//		if (piece1.Xlife == 100) {
-//			textFont(font);
-//			text("PLAYER X WINS!", 300, 75);
-//		}
-//		if (piece1.Xlife == 0) {
+	
+		PFont font = createFont("Arial", 75);
+		if (puck.x - puck.radius <= 10 && puck.y <= 2*height/9 && puck.y >= 7*height/9) {
+			textFont(font);
+			text("PLAYER LEFT WINS!", 300, 75);
+		}
+//		if () {
 //			textFont(font);
 //			text("PLAYER SQUARE WINS!", 200, 75);
 //		}
@@ -136,17 +137,33 @@ public class Board extends PApplet {
 		}
 	}
 	
-//	public void collisionDetection() {
-//		int touching = puck.radius + pusherLeft.radius;
-//		double distance = Math.sqrt(Math.pow((puck.x - pusherLeft.x), 2) 
-//	+ Math.pow((puck.y - pusherLeft.y), 2));
-//		
-//		// REMEMBER ROUND-OFF ERROR
-//		if (distance < touching) {
-//			puck.vxm = Math.abs(puck.x - pusherLeft.x) / 20;
-//			puck.vym = Math.abs(puck.y - pusherLeft.y) / 20;
-//		}
-//	}
+	public boolean collisionDetectionLeft() {
+		int touching = puck.radius + pusherLeft.radius;
+		double distance = Math.sqrt(Math.pow((puck.x - pusherLeft.x), 2) 
+	+ Math.pow((puck.y - pusherLeft.y), 2));
+		
+		// REMEMBER ROUND-OFF ERROR
+		if (distance < touching) {
+			puck.vxm = (puck.x - pusherLeft.x) / 20;
+			puck.vym = (puck.y - pusherLeft.y) / 20;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean collisionDetectionRight() {
+		int touching = puck.radius + pusherRight.radius;
+		double distance = Math.sqrt(Math.pow((puck.x - pusherRight.x), 2) 
+	+ Math.pow((puck.y - pusherRight.y), 2));
+		
+		// REMEMBER ROUND-OFF ERROR
+		if (distance < touching) {
+			puck.vxm = (puck.x - pusherRight.x) / 20;
+			puck.vym = (puck.y - pusherRight.y) / 20;
+			return true;
+		}
+		return false;
+	}
 }
 
 
