@@ -34,6 +34,12 @@ public class Pusher {
 			if (x >= drawer.width/2 - radius) {
 				x = drawer.width/2 - radius;
 			}
+			if (y <= radius) {
+				y = radius;
+			}
+			if (y >= drawer.height - radius) {
+				y = drawer.height - radius;
+			}
 		}
 	}
 

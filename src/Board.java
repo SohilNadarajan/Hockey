@@ -4,12 +4,14 @@ import processing.core.PFont;
 public class Board extends PApplet {
 	private Pusher pusherLeft, pusherRight;
 	private Puck puck;
+	private TableDesigns table;
 	boolean[] keys = new boolean[9];
 	
 	public Board() {
 		puck = new Puck(500, 500, 25);
 		pusherLeft = new Pusher(100, 350, 50);
 		pusherRight = new Pusher(1169, 350, 50);
+		table = new TableDesigns();
 	}
 
 	public void draw() {
@@ -24,6 +26,7 @@ public class Board extends PApplet {
 		puck.setVelocity(5, 5);
 		puck.act(this);
 
+		table.draw(this);
 		
 //		PFont font = createFont("Arial", 75);
 //		if (piece1.Xlife == 100) {
