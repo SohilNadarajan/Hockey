@@ -16,6 +16,7 @@ public class Board extends PApplet {
 
 	public void draw() {
 		background(255);
+		table.draw(this);
 		
 		act();
 		
@@ -25,8 +26,8 @@ public class Board extends PApplet {
 		puck.draw(this);
 		puck.setVelocity(5, 5);
 		puck.act(this);
-
-		table.draw(this);
+		
+//		collisionDetection();
 		
 //		PFont font = createFont("Arial", 75);
 //		if (piece1.Xlife == 100) {
@@ -38,6 +39,10 @@ public class Board extends PApplet {
 //			text("PLAYER SQUARE WINS!", 200, 75);
 //		}
 
+	}
+	
+	public void setup() {
+		puck.setup(this);
 	}
 	
 	int speed = 20;
@@ -131,9 +136,17 @@ public class Board extends PApplet {
 		}
 	}
 	
-	public void setup() {
-		puck.setup(this);
-	}
+//	public void collisionDetection() {
+//		int touching = puck.radius + pusherLeft.radius;
+//		double distance = Math.sqrt(Math.pow((puck.x - pusherLeft.x), 2) 
+//	+ Math.pow((puck.y - pusherLeft.y), 2));
+//		
+//		// REMEMBER ROUND-OFF ERROR
+//		if (distance < touching) {
+//			puck.vxm = Math.abs(puck.x - pusherLeft.x) / 20;
+//			puck.vym = Math.abs(puck.y - pusherLeft.y) / 20;
+//		}
+//	}
 }
 
 

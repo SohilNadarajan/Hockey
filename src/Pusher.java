@@ -41,6 +41,20 @@ public class Pusher {
 				y = drawer.height - radius;
 			}
 		}
+		if (x > drawer.width/2) {
+			if (x <= drawer.width/2 + radius) {
+				x = drawer.width/2 + radius;
+			}
+			if (x >= drawer.width - radius) {
+				x = drawer.width - radius;
+			}
+			if (y <= radius) {
+				y = radius;
+			}
+			if (y >= drawer.height - radius) {
+				y = drawer.height - radius;
+			}
+		}
 	}
 
 	public void draw(PApplet drawer) {
