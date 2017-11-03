@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -31,19 +33,29 @@ public class Board extends PApplet {
 		
 	
 		PFont font = createFont("Arial", 75);
-		if (puck.x - puck.radius <= 10 && puck.y <= 2*height/9 && puck.y >= 7*height/9) {
+		if (puck.x < 0) {
+			int puckRightScore = 1;
 			textFont(font);
-			text("PLAYER LEFT WINS!", 300, 75);
+//			fill(0);
+			text(puckRightScore, 1200, 75);
+//			noFill();
 		}
-//		if () {
+		
+//		if (puck.x < 0) {
+//			int puckRightScore = 1;
 //			textFont(font);
-//			text("PLAYER SQUARE WINS!", 200, 75);
+//			fill(0);
+//			text(puckRightScore, 1200, 75);
+//			noFill();
 //		}
 
 	}
 	
 	public void setup() {
 		puck.setup(this);
+//		pusherLeft.setup(this);
+//		pusherRight.setup(this);
+		table.setup(this);
 	}
 	
 	int speed = 20;

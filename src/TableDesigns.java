@@ -9,6 +9,7 @@ public class TableDesigns {
 
 	PShape goal1, goal2;
 	PShape centerLine, centerCircle;
+	PShape goalBox1, goalBox2;
 	
 	public TableDesigns() {		
 	}
@@ -31,14 +32,20 @@ public class TableDesigns {
 		centerLine = drawer.createShape(PConstants.LINE, drawer.width/2, 0, 
 				drawer.width/2, drawer.height);
 		centerLine.setStroke(drawer.color(Color.red.getRGB()));
-
+		
+		goalBox1 = drawer.createShape(PConstants.ELLIPSE, 0, drawer.height/2, goalLength, goalLength);
+		goalBox1.setStroke(drawer.color(Color.blue.getRGB()));
+		goalBox2 = drawer.createShape(PConstants.ELLIPSE, drawer.width, drawer.height/2, goalLength, goalLength);
+		goalBox2.setStroke(drawer.color(Color.blue.getRGB()));
 	}
 
 	public void draw(PApplet drawer) {
 		setup(drawer);
-		drawer.shape(goal1);
-		drawer.shape(goal2);
+		drawer.shape(goalBox1);
+		drawer.shape(goalBox2);
 		drawer.shape(centerCircle);
 		drawer.shape(centerLine);
+		drawer.shape(goal1);
+		drawer.shape(goal2);
 	}
 }
