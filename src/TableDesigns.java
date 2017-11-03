@@ -28,6 +28,7 @@ public class TableDesigns {
 		centerCircle = drawer.createShape(PConstants.ELLIPSE, drawer.width/2, drawer.height/2, 
 				300, 300);
 		centerCircle.setStroke(drawer.color(Color.blue.getRGB()));
+		centerCircle.setFill(255);
 		
 		centerLine = drawer.createShape(PConstants.LINE, drawer.width/2, 0, 
 				drawer.width/2, drawer.height);
@@ -35,8 +36,10 @@ public class TableDesigns {
 		
 		goalBox1 = drawer.createShape(PConstants.ELLIPSE, 0, drawer.height/2, goalLength, goalLength);
 		goalBox1.setStroke(drawer.color(Color.blue.getRGB()));
+		goalBox1.setFill(255);
 		goalBox2 = drawer.createShape(PConstants.ELLIPSE, drawer.width, drawer.height/2, goalLength, goalLength);
 		goalBox2.setStroke(drawer.color(Color.blue.getRGB()));
+		goalBox2.setFill(255);
 	}
 
 	public void draw(PApplet drawer) {

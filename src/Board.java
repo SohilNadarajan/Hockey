@@ -55,16 +55,16 @@ public class Board extends PApplet {
 		table.setup(this);
 	}
 	
-//	public void restart() {
-//		puck.x = puckOriginalX;
-//		puck.y = puckOriginalY;
-//		puck.vx = 0;
-//		puck.vy = 0;
-//		pusherLeft.x = pLOriginalX;
-//		pusherLeft.y = pLOriginalX;
-//		pusherRight.x = pROriginalX;
-//		pusherRight.y = pLOriginalX;
-//	}
+	public void restart() {
+		puck.x = puckOriginalX;
+		puck.y = puckOriginalY;
+		puck.vx = 0;
+		puck.vy = 0;
+		pusherLeft.x = pLOriginalX;
+		pusherLeft.y = pOriginalY;
+		pusherRight.x = pROriginalX;
+		pusherRight.y = pOriginalY;
+	}
 	
 	int speed = 20;
 	public void act() {
@@ -93,7 +93,7 @@ public class Board extends PApplet {
 			pusherRight.y += speed;
 		}
 		if (keys[8] == true) {
-//			restart();
+			restart();
 		}
 	}
 	
