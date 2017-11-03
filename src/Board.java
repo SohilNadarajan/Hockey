@@ -8,11 +8,13 @@ public class Board extends PApplet {
 	private Puck puck;
 	private TableDesigns table;
 	boolean[] keys = new boolean[9];
+	int puckOriginalX = 635, puckOriginalY = 350;
+	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
 	
 	public Board() {
-		puck = new Puck(635, 350, 25);
-		pusherLeft = new Pusher(100, 350, 50);
-		pusherRight = new Pusher(1169, 350, 50);
+		puck = new Puck(puckOriginalX, puckOriginalY, 25);
+		pusherLeft = new Pusher(pLOriginalX, pOriginalY, 50);
+		pusherRight = new Pusher(pROriginalX, pOriginalY, 50);
 		table = new TableDesigns();
 	}
 
@@ -36,27 +38,33 @@ public class Board extends PApplet {
 		if (puck.x < 0) {
 			int puckRightScore = 1;
 			textFont(font);
-//			fill(0);
+			fill(0);
 			text(puckRightScore, 1200, 75);
-//			noFill();
 		}
 		
-//		if (puck.x < 0) {
-//			int puckRightScore = 1;
-//			textFont(font);
-//			fill(0);
-//			text(puckRightScore, 1200, 75);
-//			noFill();
-//		}
-
+		if (puck.x > width) {
+			int puckRightScore = 1;
+			textFont(font);
+			fill(0);
+			text(puckRightScore, 40, 75);
+		}
 	}
 	
 	public void setup() {
 		puck.setup(this);
-//		pusherLeft.setup(this);
-//		pusherRight.setup(this);
 		table.setup(this);
 	}
+	
+//	public void restart() {
+//		puck.x = puckOriginalX;
+//		puck.y = puckOriginalY;
+//		puck.vx = 0;
+//		puck.vy = 0;
+//		pusherLeft.x = pLOriginalX;
+//		pusherLeft.y = pLOriginalX;
+//		pusherRight.x = pROriginalX;
+//		pusherRight.y = pLOriginalX;
+//	}
 	
 	int speed = 20;
 	public void act() {
@@ -83,6 +91,9 @@ public class Board extends PApplet {
 		}
 		if (keys[7] == true) {
 			pusherRight.y += speed;
+		}
+		if (keys[8] == true) {
+//			restart();
 		}
 	}
 	
@@ -113,9 +124,6 @@ public class Board extends PApplet {
 		}
 		if (key == 'r') {
 			keys[8] = true;			
-		}
-		if (keys[8]) {
-//			RESTART KEY
 		}
 	}
 
