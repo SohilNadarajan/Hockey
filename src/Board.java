@@ -12,7 +12,7 @@ public class Board extends PApplet {
 	boolean[] keys = new boolean[9];
 	int puckOriginalX = 635, puckOriginalY = 350;
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
-	int puckRightScore, puckLeftScore;
+	int puckRightScore = 0, puckLeftScore = 0;
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -31,6 +31,8 @@ public class Board extends PApplet {
 		pusherRight.draw(this);
 		puck.draw(this);
 		
+		
+		
 		if (collisionDetectionLeft() || collisionDetectionRight()) {
 			puck.setVelocity(10, 10);
 			puck.act(this);
@@ -44,18 +46,25 @@ public class Board extends PApplet {
 			fill(0);
 			restartLeft();
 		}
-		if (puckRightScore > 0) {
-			text(puckRightScore, 1150, 75);
+		if (puckRightScore > -1) {
+			text(puckRightScore, 1200, 75);
 		}
-		
 		if (puck.x > width) {
 			puckLeftScore++;
 			textFont(font);
 			fill(0);
 			restartRight();
 		}
-		if (puckLeftScore > 0) {
+		if (puckLeftScore > -1) {
 			text(puckLeftScore, 40, 75);	
+		}
+		
+		
+		if (puckLeftScore == 10) {
+			text("Left Player Wins!", 350, 75);
+		}
+		if (puckRightScore == 10) {
+			text("Right Player Wins!", 300, 75);
 		}
 	}
 	
@@ -178,7 +187,7 @@ public class Board extends PApplet {
 		int touching = puck.radius + pusherLeft.radius;
 		double distance = Math.sqrt(Math.pow((puck.x - pusherLeft.x), 2) 
 	+ Math.pow((puck.y - pusherLeft.y), 2));
-		
+	
 		// REMEMBER ROUND-OFF ERROR
 		if (distance < touching) {
 			puck.vxm = (puck.x - pusherLeft.x) / 20;

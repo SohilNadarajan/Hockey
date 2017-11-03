@@ -49,9 +49,10 @@ public class Puck {
 		else if ((y > drawer.height - radius) || (y < radius)) {
 			vym *= -1;   
 		}
-
-		x += vx*vxm;
-		y += vy*vym;
+		
+		x += vx * vxm;
+		y += vy * vym;
+		
 		newPuck(drawer);
 		
 	}
