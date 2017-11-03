@@ -15,7 +15,7 @@ public class Hockey {
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
 		JFrame window = (JFrame)canvas.getFrame();
 		
-		window.setLocation(0, 0);
+		window.setLocation(100, 100);
 		window.setSize(1275, 700);
 		window.setMinimumSize(new Dimension(100,100));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
