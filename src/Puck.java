@@ -39,7 +39,7 @@ public class Puck {
 	}
 	
 	public void act(PApplet drawer) {
-		if ((x > drawer.width - radius || x < radius) && (y >= 2*drawer.height/9 && y <= 5*drawer.height/9)) {
+		if ((x > drawer.width - radius || x < radius) && (y >= 2*drawer.height/9 && y <= 7*drawer.height/9)) {
 			vxm *= 1;
 			vym *= 1;
 		}

@@ -1,6 +1,3 @@
-import java.awt.Color;
-
-import com.sun.glass.ui.Timer;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -12,7 +9,9 @@ public class Board extends PApplet {
 	boolean[] keys = new boolean[9];
 	int puckOriginalX = 635, puckOriginalY = 350;
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
-	int puckRightScore, puckLeftScore;
+	int puckRightScore = 0, puckLeftScore = 0;
+	int ptime, ctime;
+	int winningScore = 3;
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -39,22 +38,42 @@ public class Board extends PApplet {
 		PFont font = createFont("Arial", 75);
 		if (puck.x < 0) {
 			puckRightScore++;
+			if (puckRightScore >= winningScore) {
+				ptime = millis(); // Storing time of win
+			}
 			textFont(font);
 			fill(0);
 			restartLeft();
 		}
-		if (puckRightScore > 0) {
-			text(puckRightScore, 1150, 75);
+		if (puckRightScore > -1) {
+			text(puckRightScore, 1200, 75);
 		}
 		
 		if (puck.x > width) {
 			puckLeftScore++;
+			if (puckLeftScore >= winningScore) {
+				ptime = millis(); // Storing time of win
+			}
 			textFont(font);
 			fill(0);
 			restartRight();
 		}
-		if (puckLeftScore > 0) {
+		if (puckLeftScore > -1) {
 			text(puckLeftScore, 40, 75);	
+		}
+		
+		ctime = millis(); // Storing current time every loop
+		if (puckLeftScore == winningScore) {
+			text("Left Player Wins!", 350, 75);
+			if (ctime - ptime > 1000) {
+				restart();
+			}
+		}
+		if (puckRightScore == winningScore) {
+			text("Right Player Wins!", 300, 75);
+			if (ctime - ptime > 1000) {
+				restart();
+			}
 		}
 	}
 	
@@ -63,7 +82,7 @@ public class Board extends PApplet {
 		table.setup(this);
 	}
 	
-	public void restart() {
+	public void reset() {
 		puck.x = puckOriginalX;
 		puck.y = puckOriginalY;
 		puck.vx = 0;
@@ -73,12 +92,17 @@ public class Board extends PApplet {
 		pusherRight.x = pROriginalX;
 		pusherRight.y = pOriginalY;		
 	}
+	public void restart() {
+		reset();
+		puckLeftScore = 0;
+		puckRightScore = 0;
+	}
 	public void restartLeft() {
-		restart();		
+		reset();		
 		puck.x = width/2 - 100;
 	}
 	public void restartRight() {
-		restart();	
+		reset();	
 		puck.x = width/2 + 100;
 	}
 	
