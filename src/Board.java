@@ -33,7 +33,6 @@ public class Board extends PApplet {
 			puck.act(this);
 		}
 		
-	
 		PFont font = createFont("Arial", 75);
 		if (puck.x < 0) {
 			int puckRightScore = 1;
