@@ -1,5 +1,7 @@
 import java.awt.Color;
 
+import com.sun.glass.ui.Timer;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -10,6 +12,7 @@ public class Board extends PApplet {
 	boolean[] keys = new boolean[9];
 	int puckOriginalX = 635, puckOriginalY = 350;
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
+	int puckRightScore, puckLeftScore;
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -35,17 +38,23 @@ public class Board extends PApplet {
 		
 		PFont font = createFont("Arial", 75);
 		if (puck.x < 0) {
-			int puckRightScore = 1;
+			puckRightScore++;
 			textFont(font);
 			fill(0);
-			text(puckRightScore, 1200, 75);
+			restartLeft();
+		}
+		if (puckRightScore > 0) {
+			text(puckRightScore, 1150, 75);
 		}
 		
 		if (puck.x > width) {
-			int puckRightScore = 1;
+			puckLeftScore++;
 			textFont(font);
 			fill(0);
-			text(puckRightScore, 40, 75);
+			restartRight();
+		}
+		if (puckLeftScore > 0) {
+			text(puckLeftScore, 40, 75);	
 		}
 	}
 	
@@ -62,7 +71,15 @@ public class Board extends PApplet {
 		pusherLeft.x = pLOriginalX;
 		pusherLeft.y = pOriginalY;
 		pusherRight.x = pROriginalX;
-		pusherRight.y = pOriginalY;
+		pusherRight.y = pOriginalY;		
+	}
+	public void restartLeft() {
+		restart();		
+		puck.x = width/2 - 100;
+	}
+	public void restartRight() {
+		restart();	
+		puck.x = width/2 + 100;
 	}
 	
 	int speed = 20;
