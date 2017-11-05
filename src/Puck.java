@@ -38,22 +38,38 @@ public class Puck {
 		this.vy = vy;
 	}
 	
+	public void print() {
+		System.out.println(this.x + ", " + this.y + " : " + this.vx + ", "+ 
+	this.vy + " : " + this.vxm + ", " + this.vym);
+	}
+	
 	public void act(PApplet drawer) {
-		if ((x > drawer.width - radius || x < radius) && (y >= 2*drawer.height/9 && y <= 7*drawer.height/9)) {
-			vxm *= 1;
-			vym *= 1;
-		}
-		else if ((x > drawer.width - radius) || (x < radius)) {
-			vxm *= -1;   
-		}
-		else if ((y > drawer.height - radius) || (y < radius)) {
-			vym *= -1;   
+//		if ((x > drawer.width - radius || x < radius) && 
+//				(y >= 2.0*drawer.height/9 && y <= 7.0*drawer.height/9)) {
+//			vxm *= 1;
+//			vym *= 1;
+//		}
+		 if (x > drawer.width - radius) {
+			//vxm *= -1;
+			 vx *= -1;
+			x = drawer.width - radius;
+		} else if (x < radius) {
+	    		//vxm *= -1;
+			vx *= -1;
+	    		x = radius;
+	    } else if (y > drawer.height - radius) {
+			//vym *= -1;
+	    		vy *= -1;
+			y = drawer.height - radius;
+		} else if (y < radius) {
+			//vym *= -1;
+			vy *= -1;
+			y = radius;
 		}
 
-		x += vx*vxm;
-		y += vy*vym;
-		newPuck(drawer);
-		
+		x += vx ;//* vxm;
+		y += vy ;//* vym;
+		newPuck(drawer);		
 	}
 	
 	
