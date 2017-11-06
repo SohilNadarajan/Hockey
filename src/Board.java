@@ -1,4 +1,3 @@
-
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -18,14 +17,10 @@ public class Board extends PApplet {
 	int puckOriginalX = 635, puckOriginalY = 350;
 //	int puckOriginalX = 50, puckOriginalY = 50; // Collision Debugger
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
-<<<<<<< HEAD
-	int puckRightScore = 0, puckLeftScore = 0;
-=======
 //	int pLOriginalX = 600, pROriginalX = 1169, pOriginalY = 600; // Collision Debugger
 	int pusherRightScore = 0, pusherLeftScore = 0;
 	int ptime, ctime;
 	int winningScore = 2;
->>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -45,17 +40,10 @@ public class Board extends PApplet {
 		
 		puck.draw(this);
 		
-<<<<<<< HEAD
-		
-		
-		if (collisionDetectionLeft() || collisionDetectionRight()) {
-			puck.setVelocity(10, 10);
-=======
 		if (collisionDetection(pusherLeft) || collisionDetection(pusherRight)) {
 //			if (puck.vx*puck.vx + puck.vy*puck.vy == 0) {
 //				puck.setVelocity(10, 10);
 //			}
->>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
 			puck.act(this);
 		}
 		
@@ -69,15 +57,9 @@ public class Board extends PApplet {
 			fill(0);
 			restartLeft();
 		}
-<<<<<<< HEAD
-		if (puckRightScore > -1) {
-			text(puckRightScore, 1200, 75);
-		}
-=======
 		if (pusherRightScore > -1) {
 			text(pusherRightScore, 1175, 75);
 		}	
->>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
 		if (puck.x > width) {
 			pusherLeftScore++;
 			if (pusherLeftScore >= winningScore) {
@@ -87,10 +69,6 @@ public class Board extends PApplet {
 			fill(0);
 			restartRight();
 		}
-<<<<<<< HEAD
-		if (puckLeftScore > -1) {
-			text(puckLeftScore, 40, 75);	
-=======
 		if (pusherLeftScore > -1) {
 			text(pusherLeftScore, 40, 75);	
 		}
@@ -114,15 +92,6 @@ public class Board extends PApplet {
 			if (ctime - ptime > 2000) {
 				restart();
 			}
->>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
-		}
-		
-		
-		if (puckLeftScore == 10) {
-			text("Left Player Wins!", 350, 75);
-		}
-		if (puckRightScore == 10) {
-			text("Right Player Wins!", 300, 75);
 		}
 	}
 	
@@ -157,7 +126,7 @@ public class Board extends PApplet {
 		puck.x = width/2 + 100;
 	}
 	
-	int speed = 20;
+	int speed = 15;
 	public void act() {
 		if (keys[0] == true) {
 			pusherLeft.y -= speed;
@@ -266,20 +235,12 @@ public class Board extends PApplet {
 	
 	
 	
-<<<<<<< HEAD
-	public boolean collisionDetectionLeft() {
-		int touching = puck.radius + pusherLeft.radius;
-		double distance = Math.sqrt(Math.pow((puck.x - pusherLeft.x), 2) 
-	+ Math.pow((puck.y - pusherLeft.y), 2));
-	
-=======
 	public boolean collisionDetection(Pusher pusher) {
 		int touching = puck.radius + pusher.radius;
 		int i = 0, dx = 0, dy = 0;
 		double distance = Math.ceil(Math.sqrt(Math.pow((puck.x - pusher.x), 2) 
 	+ Math.pow((puck.y - pusher.y), 2)));
 		
->>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
 		// REMEMBER ROUND-OFF ERROR
 		if (distance <= touching) {
 			dx = puck.vx * puck.vxm;
@@ -304,8 +265,9 @@ public class Board extends PApplet {
 		double theta = Math.tanh((puck.x - pusher.x) / (puck.y - pusher.y + 0.1));
 
 		if (puck.vx*puck.vx + puck.vy*puck.vy == 0) {
-			puck.setVelocity((int) Math.round(20*Math.cos(2*theta)), 
-					(int) Math.round(20*Math.sin(2*theta)));
+//			puck.setVelocity((puck.x - pusher.x), -1*(puck.y - pusher.y));
+			puck.vx = 20;//(puck.x - pusher.x);
+			puck.vy = 0*(puck.y - pusher.y);
 		}
 		
 		double Vxx = puck.vx * Math.cos(2 * theta);
@@ -320,10 +282,3 @@ public class Board extends PApplet {
 
 
 }
-
-
-
-
-
-
-

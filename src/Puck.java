@@ -76,19 +76,10 @@ public class Puck {
 			vy *= -1;
 			y = radius;
 		}
-<<<<<<< HEAD
-		
-		x += vx * vxm;
-		y += vy * vym;
-		
-		newPuck(drawer);
-		
-=======
 
 		x += vx ;//* vxm;
 		y += vy ;//* vym;
 		newPuck(drawer);		
->>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
 	}
 	
 	
