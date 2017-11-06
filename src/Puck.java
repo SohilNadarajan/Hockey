@@ -7,6 +7,7 @@ public class Puck {
 	PShape puck;
 	int x, y, radius;
 	int vx, vy, vxm, vym;
+	int fill = 200, stroke = 0;
 	
 	public Puck(int x, int y, int radius) {
 		this.x = x;
@@ -24,8 +25,17 @@ public class Puck {
 	
 	public void newPuck(PApplet drawer) {
 		puck = drawer.createShape(PConstants.ELLIPSE, x, y , radius*2, radius*2);
-		puck.setFill(200);
+		puck.setFill(fill);
+		puck.setStroke(stroke);
 		puck.setStrokeWeight(2);
+	}
+	
+	public void setFill(int fill) {
+		this.fill = fill;
+	}
+	
+	public void setStroke(int stroke) {
+		this.stroke = stroke;
 	}
 	
 	public void draw(PApplet drawer) {
@@ -38,23 +48,47 @@ public class Puck {
 		this.vy = vy;
 	}
 	
+	public void print() {
+		System.out.println(this.x + ", " + this.y + " : " + this.vx + ", "+ 
+	this.vy + " : " + Math.sqrt(vx*vx + vy*vy));
+	}
+	
 	public void act(PApplet drawer) {
-		if ((x > drawer.width - radius || x < radius) && (y >= 2*drawer.height/9 && y <= 5*drawer.height/9)) {
+		if ((x > drawer.width - radius || x < radius) && 
+				(y >= 2.0*drawer.height/9 && y <= 7.0*drawer.height/9)) {
 			vxm *= 1;
 			vym *= 1;
 		}
-		else if ((x > drawer.width - radius) || (x < radius)) {
-			vxm *= -1;   
+		else if (x > drawer.width - radius) {
+			//vxm *= -1;
+			 vx *= -1;
+			x = drawer.width - radius;
+		} else if (x < radius) {
+	    		//vxm *= -1;
+			vx *= -1;
+	    		x = radius;
+	    } else if (y > drawer.height - radius) {
+			//vym *= -1;
+	    		vy *= -1;
+			y = drawer.height - radius;
+		} else if (y < radius) {
+			//vym *= -1;
+			vy *= -1;
+			y = radius;
 		}
-		else if ((y > drawer.height - radius) || (y < radius)) {
-			vym *= -1;   
-		}
+<<<<<<< HEAD
 		
 		x += vx * vxm;
 		y += vy * vym;
 		
 		newPuck(drawer);
 		
+=======
+
+		x += vx ;//* vxm;
+		y += vy ;//* vym;
+		newPuck(drawer);		
+>>>>>>> a02e11d6eb49bf86775d79b970823fbeb352e1a2
 	}
 	
 	
