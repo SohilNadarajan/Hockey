@@ -10,6 +10,7 @@ import processing.core.PFont;
  */
 
 public class Board extends PApplet {
+	
 	private Pusher pusherLeft, pusherRight;
 	private Puck puck;
 	private TableDesigns table;
@@ -21,7 +22,7 @@ public class Board extends PApplet {
 	int pusherRightScore = 0, pusherLeftScore = 0;
 	int ptime, ctime;
 	int lastCollisionTime = 0;
-	int winningScore = 2;
+	int winningScore = 10;
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -122,7 +123,7 @@ public class Board extends PApplet {
 		puck.x = width/2 + 100;
 	}
 	
-	int speed = 15;
+	int speed = 20;
 	public void act() {
 		if (keys[0] == true) {
 			pusherLeft.y -= speed;
@@ -267,8 +268,8 @@ public class Board extends PApplet {
 		double theta = Math.tanh((puck.x - pusher.x) / (puck.y - pusher.y + 0.1));
 
 		if (puck.vx*puck.vx + puck.vy*puck.vy == 0) {
-			puck.vx = (int) Math.round((puck.x - pusher.x)  * 0.5);
-			puck.vy = (int) Math.round((puck.y - pusher.y)  * 0.5);
+			puck.vx = (int) Math.round((puck.x - pusher.x)  * 0.35);
+			puck.vy = (int) Math.round((puck.y - pusher.y)  * 0.35);
 			return;
 		}
 		
