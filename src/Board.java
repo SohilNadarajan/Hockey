@@ -2,8 +2,8 @@ import processing.core.PApplet;
 import processing.core.PFont;
 
 /* BUGS :
- * 1) Puck colliding from under pusher continues up
- * 2) Pusher colliding with puck initially goes diagonally or randomly
+ * 1) Minor problems with initial collision detection
+ * 2) Slow time check causing puck to get stuck in pusher
  * 
  * 
  * 
@@ -20,6 +20,7 @@ public class Board extends PApplet {
 //	int pLOriginalX = 600, pROriginalX = 1169, pOriginalY = 600; // Collision Debugger
 	int pusherRightScore = 0, pusherLeftScore = 0;
 	int ptime, ctime;
+	int lastCollisionTime = 0;
 	int winningScore = 2;
 	
 	public Board() {
@@ -41,9 +42,6 @@ public class Board extends PApplet {
 		puck.draw(this);
 		
 		if (collisionDetection(pusherLeft) || collisionDetection(pusherRight)) {
-//			if (puck.vx*puck.vx + puck.vy*puck.vy == 0) {
-//				puck.setVelocity(10, 10);
-//			}
 			puck.act(this);
 		}
 		
@@ -79,16 +77,14 @@ public class Board extends PApplet {
 		ctime = millis(); // Storing current time every loop
 		if (pusherLeftScore == winningScore) {
 			text("Left Player Wins!", 350, 75);
-			puck.setFill(255);
-			puck.setStroke(255);
+			puck.hide();
 			if (ctime - ptime > 2000) {
 				restart();
 			}
 		}
 		if (pusherRightScore == winningScore) {
 			text("Right Player Wins!", 300, 75);
-			puck.setFill(255);
-			puck.setStroke(255);
+			puck.hide();
 			if (ctime - ptime > 2000) {
 				restart();
 			}
@@ -241,6 +237,11 @@ public class Board extends PApplet {
 		double distance = Math.ceil(Math.sqrt(Math.pow((puck.x - pusher.x), 2) 
 	+ Math.pow((puck.y - pusher.y), 2)));
 		
+		
+		if (millis() - lastCollisionTime < 70) {
+			return false;
+		}
+		
 		// REMEMBER ROUND-OFF ERROR
 		if (distance <= touching) {
 			dx = puck.vx * puck.vxm;
@@ -253,8 +254,9 @@ public class Board extends PApplet {
 				puck.y -= dy;
 				distance = Math.ceil(Math.sqrt(Math.pow((puck.x - pusher.x), 2) 
 					+ Math.pow((puck.y - pusher.y), 2)));
-			} while ((distance < touching) && (i < 10));
+			} while ((distance < touching) && (i < 1));
 			reboundVelocities(pusher);
+			lastCollisionTime = millis();
 			return true;
 		}
 		return false;
@@ -265,18 +267,20 @@ public class Board extends PApplet {
 		double theta = Math.tanh((puck.x - pusher.x) / (puck.y - pusher.y + 0.1));
 
 		if (puck.vx*puck.vx + puck.vy*puck.vy == 0) {
-//			puck.setVelocity((puck.x - pusher.x), -1*(puck.y - pusher.y));
-			puck.vx = 20;//(puck.x - pusher.x);
-			puck.vy = 0*(puck.y - pusher.y);
+			puck.vx = (int) Math.round((puck.x - pusher.x)  * 0.5);
+			puck.vy = (int) Math.round((puck.y - pusher.y)  * 0.5);
+			return;
 		}
 		
 		double Vxx = puck.vx * Math.cos(2 * theta);
-		double Vxy = -1 * puck.vx * Math.sin(2 * theta);
-		double Vyx = -1 * puck.vy * Math.sin(2 * theta);
-		double Vyy = -1 * puck.vy * Math.cos(2 * theta);
+		double Vxy = puck.vx * Math.sin(2 * theta);
+		double Vyx = puck.vy * Math.sin(2 * theta);
+		double Vyy = puck.vy * Math.cos(2 * theta);
 		
-		puck.vx =  (int) Math.round(Vxx + Vyx);
-		puck.vy = (int) Math.round(Vxy + Vyy);
+		puck.vx =  (int) Math.round(Vxx - Vyx);
+		puck.vy = (int) Math.round(- Vxy - Vyy);
+//		puck.vx =  (int) Math.round(Vxx - Vyx);
+//		puck.vy = (int) Math.round(Vyy - Vxy);
 	}	
 
 

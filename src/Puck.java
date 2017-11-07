@@ -38,6 +38,15 @@ public class Puck {
 		this.stroke = stroke;
 	}
 	
+	public void hide() {
+		setFill(255);
+		setStroke(255);
+		x = 250;
+		y = 100;
+	}
+	
+	
+	
 	public void draw(PApplet drawer) {
 		drawer.shape(puck);
 		act(drawer);
