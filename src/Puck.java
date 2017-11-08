@@ -131,8 +131,8 @@ public class Puck extends PApplet{
 		double theta = Math.tanh((x - pusher.x) / (y - pusher.y + 0.1));
 
 		if (vx*vx + vy*vy == 0) {
-			vx = (int) Math.round((x - pusher.x)  * 0.35);
-			vy = (int) Math.round((y - pusher.y)  * 0.35);
+			vx = (int) Math.round((x - pusher.x)  * 0.4);
+			vy = (int) Math.round((y - pusher.y)  * 0.4);
 			return;
 		}
 
