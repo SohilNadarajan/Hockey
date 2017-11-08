@@ -19,10 +19,9 @@ public class Board extends PApplet {
 //	int puckOriginalX = 50, puckOriginalY = 50; // Collision Debugger
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
 //	int pLOriginalX = 600, pROriginalX = 1169, pOriginalY = 600; // Collision Debugger
-	int pusherRightScore = 0, pusherLeftScore = 0;
+	int pusherRightScore = 0, pusherLeftScore = 0, winningScore = 10;
 	int ptime, ctime;
 	int lastCollisionTime = 0;
-	int winningScore = 10;
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -42,7 +41,7 @@ public class Board extends PApplet {
 		
 		puck.draw(this);
 		
-		if (collisionDetection(pusherLeft) || collisionDetection(pusherRight)) {
+		if (puck.collisionDetection(pusherLeft) || puck.collisionDetection(pusherRight)) {
 			puck.act(this);
 		}
 		
@@ -71,9 +70,7 @@ public class Board extends PApplet {
 		if (pusherLeftScore > -1) {
 			text(pusherLeftScore, 40, 75);	
 		}
-		
-		
-		
+
 		
 		ctime = millis(); // Storing current time every loop
 		if (pusherLeftScore == winningScore) {
@@ -212,78 +209,8 @@ public class Board extends PApplet {
 		if (key == 'r') {
 			keys[8] = false;
 		}
-	}
-
-
-	
-//	public boolean collisionDetection(Pusher pusher) {
-//		int touching = puck.radius + pusher.radius;
-//		double distance = Math.sqrt(Math.pow((puck.x - pusher.x), 2) 
-//	+ Math.pow((puck.y - pusher.y), 2));
-//		
-//		// REMEMBER ROUND-OFF ERROR
-//		if (distance <= touching) {
-//			puck.vxm = (puck.x - pusher.x) / 20;
-//			puck.vym = (puck.y - pusher.y) / 20;
-//			return true;
-//		}
-//		return false;
-//	}
-	
-	
-	
-	public boolean collisionDetection(Pusher pusher) {
-		int touching = puck.radius + pusher.radius;
-		int i = 0, dx = 0, dy = 0;
-		double distance = Math.ceil(Math.sqrt(Math.pow((puck.x - pusher.x), 2) 
-	+ Math.pow((puck.y - pusher.y), 2)));
-		
-		
-		if (millis() - lastCollisionTime < 70) {
-			return false;
-		}
-		
-		// REMEMBER ROUND-OFF ERROR
-		if (distance <= touching) {
-			dx = puck.vx * puck.vxm;
-			dy = puck.vy * puck.vym;
-			do {
-				i++;
-				//System.out.println(i + ", " + distance);
-				//puck.print();
-				puck.x -= dx;
-				puck.y -= dy;
-				distance = Math.ceil(Math.sqrt(Math.pow((puck.x - pusher.x), 2) 
-					+ Math.pow((puck.y - pusher.y), 2)));
-			} while ((distance < touching) && (i < 1));
-			reboundVelocities(pusher);
-			lastCollisionTime = millis();
-			return true;
-		}
-		return false;
-	}
-	
-	public void reboundVelocities(Pusher pusher) {
-		
-		double theta = Math.tanh((puck.x - pusher.x) / (puck.y - pusher.y + 0.1));
-
-		if (puck.vx*puck.vx + puck.vy*puck.vy == 0) {
-			puck.vx = (int) Math.round((puck.x - pusher.x)  * 0.35);
-			puck.vy = (int) Math.round((puck.y - pusher.y)  * 0.35);
-			return;
-		}
-		
-		double Vxx = puck.vx * Math.cos(2 * theta);
-		double Vxy = puck.vx * Math.sin(2 * theta);
-		double Vyx = puck.vy * Math.sin(2 * theta);
-		double Vyy = puck.vy * Math.cos(2 * theta);
-		
-		puck.vx =  (int) Math.round(Vxx - Vyx);
-		puck.vy = (int) Math.round(- Vxy - Vyy);
-//		puck.vx =  (int) Math.round(Vxx - Vyx);
-//		puck.vy = (int) Math.round(Vyy - Vxy);
 	}	
-
-
-
 }
+
+
+
