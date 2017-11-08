@@ -5,7 +5,7 @@ import processing.core.PFont;
  * 1) Minor problems with initial collision detection
  * 2) Slow time check causing puck to get stuck in pusher
  * 
- * 
+ * RISHIKESH IN THE HOUSE!!!!!!!
  * 
  */
 
