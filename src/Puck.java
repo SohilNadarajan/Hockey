@@ -44,10 +44,13 @@ public class Puck extends PApplet{
 		setFill(255);
 		setStroke(255);
 		x = 250;
-		y = 100;
+		y = 350;
 	}
 	
-	
+	public void show() {
+		setFill(200);
+		setStroke(0);
+	}
 	
 	public void draw(PApplet drawer) {
 		drawer.shape(puck);

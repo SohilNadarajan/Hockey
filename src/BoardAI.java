@@ -98,8 +98,7 @@ public class BoardAI extends PApplet {
 	}
 	public void restart() {
 		reset();
-		puck.setFill(200);
-		puck.setStroke(0);
+		puck.show();
 		pusherLeftScore = 0;
 		pusherRightScore = 0;
 	}
