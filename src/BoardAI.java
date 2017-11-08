@@ -6,7 +6,6 @@ public class BoardAI extends PApplet {
 	private Pusher pusherAI, pusherPlayer;
 	private Puck puck;
 	private TableDesigns table;
-	private Board board;
 	boolean[] keys = new boolean[9];
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
 	int puckOriginalX = 635, puckOriginalY = 350;
@@ -18,7 +17,6 @@ public class BoardAI extends PApplet {
 		pusherAI = new Pusher(pLOriginalX, pOriginalY, 50);
 		pusherPlayer = new Pusher(pROriginalX, pOriginalY, 50);
 		table = new TableDesigns();
-		board = new Board();
 	}
 	
 	public void draw() {

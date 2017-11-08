@@ -4,11 +4,17 @@ import javax.swing.JFrame;
 
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
+import processing.core.PShape;
 
-public class Hockey {
+public class Hockey extends PApplet{
 	
+	PShape option1, option2;
 	
 	public static void main(String args[]) {
+		
+		
+		
+		
 		
 //		Board board = new Board();
 		BoardAI board = new BoardAI();
@@ -27,5 +33,10 @@ public class Hockey {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);
 		window.setVisible(true);
+	}
+	
+	public void draw(PApplet drawer) {
+		text("Pick A Game Mode", 300, 75);
+		
 	}
 }
