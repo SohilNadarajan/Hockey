@@ -19,9 +19,10 @@ public class Board extends PApplet {
 //	int puckOriginalX = 50, puckOriginalY = 50; // Collision Debugger
 	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
 //	int pLOriginalX = 600, pROriginalX = 1169, pOriginalY = 600; // Collision Debugger
-	int pusherRightScore = 0, pusherLeftScore = 0, winningScore = 10;
+	int pusherRightScore = 0, pusherLeftScore = 0;
+	final int WINNING_SCORE = 10;
 	int ptime, ctime;
-	int lastCollisionTime = 0;
+	//int lastCollisionTime = 0;
 	
 	public Board() {
 		puck = new Puck(puckOriginalX, puckOriginalY, 25);
@@ -48,7 +49,7 @@ public class Board extends PApplet {
 		PFont font = createFont("Arial", 75);
 		if (puck.x < 0) {
 			pusherRightScore++;
-			if (pusherRightScore >= winningScore) {
+			if (pusherRightScore >= WINNING_SCORE) {
 				ptime = millis(); // Storing time of win
 			}
 			textFont(font);
@@ -60,7 +61,7 @@ public class Board extends PApplet {
 		}	
 		if (puck.x > width) {
 			pusherLeftScore++;
-			if (pusherLeftScore >= winningScore) {
+			if (pusherLeftScore >= WINNING_SCORE) {
 				ptime = millis(); // Storing time of win
 			}
 			textFont(font);
@@ -73,14 +74,14 @@ public class Board extends PApplet {
 
 		
 		ctime = millis(); // Storing current time every loop
-		if (pusherLeftScore == winningScore) {
+		if (pusherLeftScore == WINNING_SCORE) {
 			text("Left Player Wins!", 350, 75);
 			puck.hide();
 			if (ctime - ptime > 2000) {
 				restart();
 			}
 		}
-		if (pusherRightScore == winningScore) {
+		if (pusherRightScore == WINNING_SCORE) {
 			text("Right Player Wins!", 300, 75);
 			puck.hide();
 			if (ctime - ptime > 2000) {
