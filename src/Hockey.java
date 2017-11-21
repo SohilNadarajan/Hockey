@@ -23,9 +23,10 @@ public class Hockey extends PApplet {
 	public static void main(String args[]) {
 		
 //		MainMenu board = new MainMenu();
-		Board board = new Board();
+//		Board board = new Board();
 //		BoardAI board = new BoardAI();
-				
+		EverythingBoard board = new EverythingBoard();
+		
 		PApplet.runSketch(new String[]{""}, board);
 		PSurfaceAWT surf = (PSurfaceAWT) board.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
