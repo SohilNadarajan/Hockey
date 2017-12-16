@@ -53,6 +53,7 @@ public class Puck extends PApplet{
 	}
 	
 	public void draw(PApplet drawer) {
+		setup(drawer);
 		drawer.shape(puck);
 		act(drawer);
 	}

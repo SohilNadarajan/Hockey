@@ -3,22 +3,35 @@ import processing.core.PConstants;
 import processing.core.PFont;
 import processing.core.PShape;
 
+/*
+	BUGS:
+	- Fix Puck class, seems to be the main problem
+	- In drawBoard() (and drawBoardAI()) change "background(255)" to "initialBackground = 255;"
+
+	FIXED!! LEGGO MY EGGO!!
+
+
+*/
 public class EverythingBoard extends PApplet {
 	
-	PShape option1, option2;
+	private PShape option1, option2;
 	
 	private Pusher pusherLeft, pusherRight;
 	private Puck puck;
 	private TableDesigns table;
-	boolean[] keys = new boolean[9];
-	int puckOriginalX = 635, puckOriginalY = 350;
-	int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
-	int pusherRightScore = 0, pusherLeftScore = 0, winningScoreBoard = 10;
-	int ptime, ctime;
-	int lastCollisionTime = 0;
+	private boolean[] keys = new boolean[9];
+	private int puckOriginalX = 635, puckOriginalY = 350;
+	private int pLOriginalX = 100, pROriginalX = 1169, pOriginalY = 350;
+	private int pusherRightScore = 0, pusherLeftScore = 0, winningScoreBoard = 10;
+	private int ptime, ctime;
+	private int lastCollisionTime = 0;
+	private int initialBackground = 225;
+	
+	private boolean isClicked1 = false;
+	private boolean isClicked2 = false;
 	
 	private Pusher pusherAI, pusherPlayer;
-	int pusherplayerScore = 0, pusherAIScore = 0, winningScoreAI = 1;
+	private int pusherplayerScore = 0, pusherAIScore = 0, winningScoreAI = 3;
 	
 	
 	public EverythingBoard() {
@@ -39,31 +52,44 @@ public class EverythingBoard extends PApplet {
 
 	public void draw() {
 
-		background(200);
+		background(initialBackground);
 
 		PFont font = createFont("Arial", 75);
 		textFont(font);
 		fill(0);
-		text("Pick A Game Mode", 310, 75);
-
+		
 		setup(this);
+		
 
 		if (mouseX > width/4 && mouseX < 3*width/4 && mouseY > 150 && mouseY < 300) {
 			option1.setFill(255);
 			if (mousePressed == true) {
-				drawBoard();
+				isClicked1 = true;
 			}
 		}
+		if (isClicked1 == true) {
+			drawBoard();
+			initialBackground = 255;
+		}
+		
 		if (mouseX > width/4 && mouseX < 3*width/4 && mouseY > 315 && mouseY < 465) {
 			option2.setFill(255);
 			if (mousePressed == true) {
-				drawBoardAI();
+				isClicked2 = true;
 			}
 		}
-
-		option1.draw(g);
-		option2.draw(g);
-
+		if (isClicked2 == true) {
+			drawBoardAI();
+			initialBackground = 255;
+		}
+		
+		if (initialBackground == 225) {
+			option1.draw(g);
+			option2.draw(g);
+			text("Pick A Game Mode", 310, 100);
+			text("Two Player", 445, 250);
+			text("Computer", 460, 415);
+		}
 
 	}
 	
@@ -336,19 +362,19 @@ public class EverythingBoard extends PApplet {
 	
 	int speedAI = 20;
 	public void actAI() {
-		if (keys[0] == true) {
+		if (keys[4] == true) {
 			pusherPlayer.x -= speedAI;
 		}
-		if (keys[1] == true) {
+		if (keys[5] == true) {
 			pusherPlayer.y -= speedAI;
 		}
-		if (keys[2] == true) {
+		if (keys[6] == true) {
 			pusherPlayer.x += speedAI;
 		}
-		if (keys[3] == true) {
+		if (keys[7] == true) {
 			pusherPlayer.y += speedAI;
 		}
-		if (keys[4] == true) {
+		if (keys[8] == true) {
 			resetAI();
 		}
 	}
