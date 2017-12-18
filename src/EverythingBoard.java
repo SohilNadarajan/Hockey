@@ -14,7 +14,7 @@ import processing.core.PShape;
 */
 public class EverythingBoard extends PApplet {
 	
-	private PShape option1, option2;
+	private PShape option1, option2, option3;
 	
 	private Pusher pusherLeft, pusherRight;
 	private Puck puck;
@@ -29,6 +29,7 @@ public class EverythingBoard extends PApplet {
 	
 	private boolean isClicked1 = false;
 	private boolean isClicked2 = false;
+	private boolean isClicked3 = false;
 	
 	private Pusher pusherAI, pusherPlayer;
 	private int pusherplayerScore = 0, pusherAIScore = 0, winningScoreAI = 3;
@@ -46,8 +47,10 @@ public class EverythingBoard extends PApplet {
 	public void setup(PApplet drawer) {
 		option1 = createShape(PConstants.RECT, width/4, 150, width/2, 150);
 		option2 = createShape(PConstants.RECT, width/4, 315, width/2, 150);
+		option3 = createShape(PConstants.RECT, width/4, 480, width/2, 150);
 		option1.setFill(200);
 		option2.setFill(200);
+		option3.setFill(200);
 	}
 
 	public void draw() {
@@ -83,9 +86,21 @@ public class EverythingBoard extends PApplet {
 			initialBackground = 255;
 		}
 		
+		if (mouseX > width/4 && mouseX < 3*width/4 && mouseY > 480 && mouseY < 630) {
+			option3.setFill(255);
+			if (mousePressed == true) {
+				isClicked3 = true;
+			}
+		}
+		if (isClicked3 == true) {
+//			drawBoardPractice();
+			initialBackground = 255;
+		}
+		
 		if (initialBackground == 225) {
 			option1.draw(g);
 			option2.draw(g);
+			option3.draw(g);
 			text("Pick A Game Mode", 310, 100);
 			text("Two Player", 445, 250);
 			text("Computer", 460, 415);
